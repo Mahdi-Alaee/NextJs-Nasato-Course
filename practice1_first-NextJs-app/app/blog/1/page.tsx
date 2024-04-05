@@ -1,4 +1,4 @@
-export default function page(){
+export default function FirstBlogPage(){
     return (
         <>
             <h1>Blog 1</h1>
