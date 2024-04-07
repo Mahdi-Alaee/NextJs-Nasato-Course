@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { ReactNode } from "react";
 
 interface LayoutProps {
@@ -8,9 +9,21 @@ export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en">
       <body>
-        <header style={{border: '1px solid blue'}}>[header]</header>
+        <header>
+          <ul>
+            <li>
+              <Link href="/">Home</Link>
+            </li>
+            <li>
+              <Link href="/about">About</Link>
+            </li>
+            <li>
+              <Link href="/reviews">Reviews</Link>
+            </li>
+          </ul>
+        </header>
         <main>{children}</main>
-        <footer style={{border: '1px solid blue'}}>[footer]</footer>
+        <footer>[footer]</footer>
       </body>
     </html>
   );
