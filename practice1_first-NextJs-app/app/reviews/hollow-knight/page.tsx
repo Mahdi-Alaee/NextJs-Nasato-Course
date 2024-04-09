@@ -4,6 +4,8 @@ export default function HollowKnightReviewPage () {
   return (
     <>
       <Heading>this is Hollow-Knight review page</Heading>
+      <img className="my-4 rounded" src="/images/hollow-knight.jpg" 
+      width='600' height='300' alt="game image" />
       <p>NextJs is a react-based framework for better web developing</p>
     </>
   );
