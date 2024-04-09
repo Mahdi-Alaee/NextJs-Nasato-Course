@@ -1,10 +1,9 @@
 import type { ReactNode } from "react";
-import { orbitron } from "@/app/fonts";
 
 interface HeadingProps {
   children: ReactNode;
 }
 
 export default function Heading({ children }: HeadingProps) {
-  return <h1 className={`text-2xl font-bold ${orbitron.className}`}>{children}</h1>;
+  return <h1 className="text-2xl font-bold font-orbitron">{children}</h1>;
 }
