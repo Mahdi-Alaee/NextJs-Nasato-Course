@@ -14,7 +14,7 @@ export default function ReviewsPage() {
             src="/images/hollow-knight.jpg"
             alt=""
           />
-          <p className="text-center py-1 font-orbitron">Hollow Knight</p>
+          <p className="text-center py-1 font-orbitron font-bold">Hollow Knight</p>
         </Link>
 
         <Link className="bg-white rounded shadow" href="/reviews/fortnite">
@@ -25,7 +25,7 @@ export default function ReviewsPage() {
             src="/images/stardew-valley.jpg"
             alt=""
           />
-          <p className="text-center py-1 font-orbitron">Fortnite</p>
+          <p className="text-center py-1 font-orbitron font-bold">Fortnite</p>
         </Link>
       </div>
     </>

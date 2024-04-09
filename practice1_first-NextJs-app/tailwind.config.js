@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       fontFamily: {
         orbitron: ["var(--orbitron-font)", "sans-serif"],
+        sans: ["var(--exo2-font)", "sans-serif"],
       },
     },
   },
