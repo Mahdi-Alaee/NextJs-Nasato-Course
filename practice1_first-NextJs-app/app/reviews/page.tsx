@@ -12,7 +12,7 @@ export default function ReviewsPage() {
             <p className="text-center py-1">Hollow Knight</p>
           </Link>
 
-          <Link className="bg-white rounded shadow" href="/reviews/hollow-knight">
+          <Link className="bg-white rounded shadow" href="/reviews/fortnite">
             <img className="rounded-t" width='420' height='180' src="/images/stardew-valley.jpg" alt="" />
             <p className="text-center py-1">Fortnite</p>
           </Link>
