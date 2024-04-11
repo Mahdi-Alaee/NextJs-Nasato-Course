@@ -16,7 +16,7 @@ export default async function HollowKnightReviewPage() {
         height="300"
         alt="game image"
       />
-      <article dangerouslySetInnerHTML={{__html: html}} />
+      <article dangerouslySetInnerHTML={{__html: html}} className="prose prose-slate prose-h1:text-3xl" />
     </>
   );
 }
