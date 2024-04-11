@@ -1,15 +1,8 @@
-import { readFile } from "node:fs/promises";
 import Heading from "@/components/Heading";
-import { marked } from "marked";
-import matter from "gray-matter";
+import { getReview } from "@/lib/reviews";
 
 export default async function HollowKnightReviewPage() {
-  const text = await readFile("./content/reviews/hollow-knight.md", "utf-8");
-  const {
-    content,
-    data: { title, image, date },
-  } = matter(text);
-  const html = marked(content);
+  const { title, image, date, body } = await getReview('hollow-knight');
 
   return (
     <>
@@ -24,7 +17,7 @@ export default async function HollowKnightReviewPage() {
         alt="game image"
       />
       <article
-        dangerouslySetInnerHTML={{ __html: html }}
+        dangerouslySetInnerHTML={{ __html: body }}
         className="prose prose-slate prose-h1:text-3xl"
       />
     </>
