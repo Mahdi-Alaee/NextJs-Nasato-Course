@@ -1,3 +1,10 @@
+---
+    title: "this is Hollow-Knight review page"
+    image: "/images/hollow-knight.jpg"
+    date: "2020/2/19"
+---
+
+
 # welcome
 
 It’s not hard to get lost in the deep, subterranean world of Hollow Knight – and I mean that in more ways than one. The expansive catacombs of Hallownest have countless paths to explore and secrets to find. But more than that, it’s rich with lore, history, and purpose that drew me into a 2D Metroidvania kingdom I wanted to uncover every inch of.
