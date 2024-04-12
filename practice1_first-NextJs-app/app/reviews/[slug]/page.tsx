@@ -36,7 +36,9 @@ export default async function ReviewPage({
           />
         </>
       ) : (
-        <h1 className="bg-red-200 text-red-600 flex justify-center items-center text-5xl h-full">not found</h1>
+        <h1 className="bg-red-200 text-red-600 flex justify-center items-center text-5xl h-full">
+          not found
+        </h1>
       )}
     </>
   );
