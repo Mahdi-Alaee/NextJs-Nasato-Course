@@ -1,8 +1,14 @@
 import Heading from "@/components/Heading";
-import { getReview } from "@/lib/reviews";
+import { getReview, getSlugs } from "@/lib/reviews";
 
 interface ReviewPageProps {
   params: { slug: string };
+}
+
+export async function generateStaticParams() {
+  const slugs = await getSlugs();
+
+  return slugs.map((slug) => ({ slug }));
 }
 
 export default async function ReviewPage({
@@ -15,6 +21,8 @@ export default async function ReviewPage({
   } catch (err) {
     console.log(err);
   }
+
+  console.log("[reviewPage]", slug);
 
   return (
     <>

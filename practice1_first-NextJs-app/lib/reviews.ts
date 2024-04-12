@@ -4,7 +4,7 @@ import { readFile, readdir } from "node:fs/promises";
 import { Interface } from "node:readline";
 
 export interface Review {
-  slug:string;
+  slug: string;
   title: string;
   date: string;
   image: string;
@@ -24,23 +24,28 @@ export async function getReview(slug: string): Promise<Review> {
     title,
     image,
     date,
-    slug
+    slug,
   };
 
   return output;
 }
 
 export async function getReviews(): Promise<Review[]> {
-  const files = await readdir("./content/reviews/");
-  const slugs = files
-    .filter((file) => file.endsWith(".md"))
-    .map((slug) => slug.slice(0, -".md".length));
+  const slugs = await getSlugs();
 
   let reviews: Review[] = [];
 
-  for (let slug of slugs) {    
+  for (let slug of slugs) {
     reviews.push(await getReview(slug));
   }
 
   return reviews;
+}
+
+export async function getSlugs() {
+  const slugs = (await readdir("./content/reviews/"))
+    .filter((file) => file.endsWith(".md"))
+    .map((file) => file.slice(0, -".md".length));
+
+    return slugs;
 }
