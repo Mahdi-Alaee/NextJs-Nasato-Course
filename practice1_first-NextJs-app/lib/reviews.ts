@@ -35,7 +35,6 @@ export async function getReviews(): Promise<Review[]> {
   const slugs = files
     .filter((file) => file.endsWith(".md"))
     .map((slug) => slug.slice(0, -".md".length));
-  console.log("[getReviews]", slugs);
 
   let reviews: Review[] = [];
 
