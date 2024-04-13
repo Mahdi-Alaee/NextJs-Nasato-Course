@@ -1,4 +1,5 @@
 import Heading from "@/components/Heading";
+import ShareLinkButton from "@/components/ShareLinkButton";
 import { getReview, getSlugs } from "@/lib/reviews";
 import { Metadata } from "next";
 
@@ -42,8 +43,13 @@ export default async function ReviewPage({
       {reviewData ? (
         <>
           <Heading>{reviewData.title}</Heading>
+          {/* image top container */}
+          <div className="flex gap-x-4 items-baseline mt-2">
           {/* date */}
           <p className="italic mt-2 -mb-2">{reviewData.date}</p>
+          {/* share link */}
+          <ShareLinkButton />
+          </div>
           <img
             className="my-4 rounded"
             src={reviewData.image}
