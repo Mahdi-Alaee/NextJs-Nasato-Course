@@ -19,7 +19,7 @@ export default async function ReviewsPage() {
       sm:flex-row sm:gap-x-6 sm:flex-wrap"
       >
         {reviews.map((review) => (
-          <ReviewBox {...review} />
+          <ReviewBox key={review.slug} {...review} />
         ))}
       </div>
     </>
