@@ -4,7 +4,6 @@ import { getLatestReview } from "@/lib/reviews";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Home Page',
   description: 'game reviews by Indie Gamer'
 }
 

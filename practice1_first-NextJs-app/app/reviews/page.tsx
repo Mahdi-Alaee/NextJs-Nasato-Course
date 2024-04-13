@@ -2,6 +2,11 @@ import Link from "next/link";
 import Heading from "@/components/Heading";
 import { Review, getReviews } from "@/lib/reviews";
 import ReviewBox from "@/components/ReviewBox";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "reviews",
+};
 
 export default async function ReviewsPage() {
   const reviews: Review[] = await getReviews();

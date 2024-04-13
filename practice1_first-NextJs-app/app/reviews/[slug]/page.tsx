@@ -1,9 +1,15 @@
 import Heading from "@/components/Heading";
 import { getReview, getSlugs } from "@/lib/reviews";
+import { Metadata } from "next";
+import { useParams } from "next/navigation";
 
 interface ReviewPageProps {
   params: { slug: string };
 }
+
+export const metadata: Metadata = {
+  title: `review`,
+};
 
 export async function generateStaticParams() {
   const slugs = await getSlugs();
