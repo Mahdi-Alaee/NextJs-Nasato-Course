@@ -1,7 +1,7 @@
 ---
     title: "Hellblade"
     image: "/images/hellblade.jpg"
-    date: "2019/2/16"
+    date: "2021/2/16"
 ---
 
 Hellblade Senuas Sacrifice was an unforgettably beautiful. It was not overly spooky but just the right amount... A unforgettable unique experience. 

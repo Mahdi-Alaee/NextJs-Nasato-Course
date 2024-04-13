@@ -1,10 +1,20 @@
 import Heading from "@/components/Heading";
+import ReviewBox from "@/components/ReviewBox";
+import { getLatestReview } from "@/lib/reviews";
 
-export default function HomePage () {
-    return (
-        <>
-            <Heading>this is my first next page</Heading>
-            <p>NextJs is a react-based framework for better web developing</p>
-        </>
-    )
+export default async function HomePage() {
+  const latestReview = await getLatestReview();
+  console.log(latestReview);
+
+  return (
+    <>
+      <Heading>this is my first next page</Heading>
+      <div className="my-4 flex">
+        <ReviewBox {...latestReview} />
+      </div>
+      <p className="">
+        NextJs is a react-based framework for better web developing
+      </p>
+    </>
+  );
 }

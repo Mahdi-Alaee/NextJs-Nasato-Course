@@ -38,6 +38,7 @@ export async function getReviews(): Promise<Review[]> {
   for (let slug of slugs) {
     reviews.push(await getReview(slug));
   }
+  reviews.sort((a,b) => b.date.localeCompare(a.date))
 
   return reviews;
 }
@@ -48,4 +49,9 @@ export async function getSlugs() {
     .map((file) => file.slice(0, -".md".length));
 
     return slugs;
+}
+
+export async function getLatestReview() {
+  const reviews = await getReviews();
+  return reviews[0]
 }
