@@ -1,10 +1,15 @@
 import Heading from "@/components/Heading";
 import ReviewBox from "@/components/ReviewBox";
 import { getLatestReview } from "@/lib/reviews";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'Home Page',
+  description: 'game reviews by Indie Gamer'
+}
 
 export default async function HomePage() {
   const latestReview = await getLatestReview();
-  console.log(latestReview);
 
   return (
     <>
