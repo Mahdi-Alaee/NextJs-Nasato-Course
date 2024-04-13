@@ -44,9 +44,9 @@ export default async function ReviewPage({
         <>
           <Heading>{reviewData.title}</Heading>
           {/* image top container */}
-          <div className="flex gap-x-4 items-baseline mt-2">
+          <div className="flex gap-x-4 items-center mt-2 -mb-2">
           {/* date */}
-          <p className="italic mt-2 -mb-2">{reviewData.date}</p>
+          <p className="italic">{reviewData.date}</p>
           {/* share link */}
           <ShareLinkButton />
           </div>
