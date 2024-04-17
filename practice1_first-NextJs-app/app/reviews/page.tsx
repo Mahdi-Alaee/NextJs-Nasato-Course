@@ -18,8 +18,8 @@ export default async function ReviewsPage() {
         className="flex flex-col items-center justify-center mt-4 gap-y-4 
       sm:flex-row sm:gap-x-6 sm:flex-wrap"
       >
-        {reviews.map((review) => (
-          <ReviewBox key={review.slug} {...review} />
+        {reviews.map((review, index) => (
+          <ReviewBox priority={index === 0} key={review.slug} {...review} />
         ))}
       </div>
     </>

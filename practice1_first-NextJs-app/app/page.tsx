@@ -14,7 +14,7 @@ export default async function HomePage() {
     <>
       <Heading>this is my first next page</Heading>
       <div className="my-4 flex">
-        <ReviewBox {...latestReview} />
+        <ReviewBox {...latestReview} priority />
       </div>
       <p className="">
         NextJs is a react-based framework for better web developing
