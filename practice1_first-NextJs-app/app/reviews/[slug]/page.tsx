@@ -22,11 +22,13 @@ export async function generateMetadata({
   };
 }
 
-export async function generateStaticParams(): Promise<ReviewPageParams[]> {
-  const slugs = await getSlugs();
+export const dynamic = "force-dynamic";
 
-  return slugs.map((slug) => ({ slug }));
-}
+// export async function generateStaticParams(): Promise<ReviewPageParams[]> {
+//   const slugs = await getSlugs();
+
+//   return slugs.map((slug) => ({ slug }));
+// }
 
 export default async function ReviewPage({
   params: { slug },
@@ -46,10 +48,10 @@ export default async function ReviewPage({
           <Heading>{reviewData.title}</Heading>
           {/* image top container */}
           <div className="flex gap-x-4 items-center mt-2 -mb-2">
-          {/* date */}
-          <p className="italic">{reviewData.date}</p>
-          {/* share link */}
-          <ShareLinkButton />
+            {/* date */}
+            <p className="italic">{reviewData.date}</p>
+            {/* share link */}
+            <ShareLinkButton />
           </div>
           <Image
             className="my-4 rounded"

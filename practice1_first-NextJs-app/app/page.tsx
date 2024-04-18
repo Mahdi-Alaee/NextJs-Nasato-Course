@@ -4,8 +4,10 @@ import { getLatestReview } from "@/lib/reviews";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  description: 'game reviews by Indie Gamer'
-}
+  description: "game reviews by Indie Gamer",
+};
+
+export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
   const latestReview = await getLatestReview();
