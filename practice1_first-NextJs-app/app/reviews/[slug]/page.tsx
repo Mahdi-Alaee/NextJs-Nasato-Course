@@ -3,6 +3,7 @@ import ShareLinkButton from "@/components/ShareLinkButton";
 import { getReview, getSlugs } from "@/lib/reviews";
 import { Metadata } from "next";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 
 interface ReviewPageParams {
   slug: string;
@@ -14,11 +15,15 @@ interface ReviewPageProps {
 
 export async function generateMetadata({
   params: { slug },
-}: ReviewPageProps): Promise<Metadata> {
-  const { title } = await getReview(slug);
+}: ReviewPageProps): Promise<Metadata | null> {
+  const review = await getReview(slug);
+
+  if (!review) {
+    return null;
+  }
 
   return {
-    title: title,
+    title: review.title,
   };
 }
 
@@ -33,43 +38,32 @@ export const dynamic = "force-dynamic";
 export default async function ReviewPage({
   params: { slug },
 }: ReviewPageProps) {
-  let reviewData;
+  const reviewData = await getReview(slug);
 
-  try {
-    reviewData = await getReview(slug);
-  } catch (err) {
-    console.log(err);
-  }
+  if(!reviewData)
+    notFound()
 
   return (
     <>
-      {reviewData ? (
-        <>
-          <Heading>{reviewData.title}</Heading>
-          {/* image top container */}
-          <div className="flex gap-x-4 items-center mt-2 -mb-2">
-            {/* date */}
-            <p className="italic">{reviewData.date}</p>
-            {/* share link */}
-            <ShareLinkButton />
-          </div>
-          <Image
-            className="my-4 rounded"
-            src={reviewData.image}
-            width="600"
-            height="300"
-            alt="game image"
-          />
-          <article
-            dangerouslySetInnerHTML={{ __html: reviewData.body }}
-            className="prose prose-slate prose-h1:text-3xl"
-          />
-        </>
-      ) : (
-        <h1 className="bg-red-200 text-red-600 flex justify-center items-center text-5xl h-full">
-          not found
-        </h1>
-      )}
+      <Heading>{reviewData.title}</Heading>
+      {/* image top container */}
+      <div className="flex gap-x-4 items-center mt-2 -mb-2">
+        {/* date */}
+        <p className="italic">{reviewData.date}</p>
+        {/* share link */}
+        <ShareLinkButton />
+      </div>
+      <Image
+        className="my-4 rounded"
+        src={reviewData.image}
+        width="600"
+        height="300"
+        alt="game image"
+      />
+      <article
+        dangerouslySetInnerHTML={{ __html: reviewData.body }}
+        className="prose prose-slate prose-h1:text-3xl"
+      />
     </>
   );
 }

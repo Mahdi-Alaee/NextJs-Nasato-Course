@@ -11,23 +11,27 @@ export interface Review {
   body: string;
 }
 
-export async function getReview(slug: string): Promise<Review> {
-  const text = await readFile(`./content/reviews/${slug}.md`, "utf-8");
-  const {
-    content,
-    data: { title, image, date },
-  } = matter(text);
-  const body = await marked(content);
+export async function getReview(slug: string): Promise<Review | undefined> {
+  try {
+    const text = await readFile(`./content/reviews/${slug}.md`, "utf-8");
+    const {
+      content,
+      data: { title, image, date },
+    } = matter(text);
+    const body = await marked(content);
 
-  const output: Review = {
-    body,
-    title,
-    image,
-    date,
-    slug,
-  };
+    const output: Review = {
+      body,
+      title,
+      image,
+      date,
+      slug,
+    };
 
-  return output;
+    return output;
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 export async function getReviews(): Promise<Review[]> {
@@ -36,9 +40,10 @@ export async function getReviews(): Promise<Review[]> {
   let reviews: Review[] = [];
 
   for (let slug of slugs) {
-    reviews.push(await getReview(slug));
+    const review = await getReview(slug);
+    if (review) reviews.push(review);
   }
-  reviews.sort((a,b) => b.date.localeCompare(a.date))
+  reviews.sort((a, b) => b.date.localeCompare(a.date));
 
   return reviews;
 }
@@ -48,10 +53,10 @@ export async function getSlugs() {
     .filter((file) => file.endsWith(".md"))
     .map((file) => file.slice(0, -".md".length));
 
-    return slugs;
+  return slugs;
 }
 
 export async function getLatestReview() {
   const reviews = await getReviews();
-  return reviews[0]
+  return reviews[0];
 }
