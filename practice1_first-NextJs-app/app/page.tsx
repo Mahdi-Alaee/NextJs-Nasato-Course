@@ -7,10 +7,13 @@ export const metadata: Metadata = {
   description: "game reviews by Indie Gamer",
 };
 
-export const dynamic = "force-dynamic";
+export const revalidate = 10;
 
 export default async function HomePage() {
   const latestReview = await getLatestReview();
+
+  console.log('[HomePage]', 'rendered');
+  
 
   return (
     <>

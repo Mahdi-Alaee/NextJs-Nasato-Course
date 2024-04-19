@@ -27,21 +27,21 @@ export async function generateMetadata({
   };
 }
 
-export const dynamic = "force-dynamic";
+export async function generateStaticParams(): Promise<ReviewPageParams[]> {
+  const slugs = await getSlugs();
 
-// export async function generateStaticParams(): Promise<ReviewPageParams[]> {
-//   const slugs = await getSlugs();
-
-//   return slugs.map((slug) => ({ slug }));
-// }
+  return slugs.map((slug) => ({ slug }));
+}
 
 export default async function ReviewPage({
   params: { slug },
 }: ReviewPageProps) {
   const reviewData = await getReview(slug);
 
-  if(!reviewData)
-    notFound()
+  if (!reviewData) notFound();
+
+  console.log('[ReviewPage]', slug + ' rendered');
+  
 
   return (
     <>
