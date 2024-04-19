@@ -8,13 +8,11 @@ export const metadata: Metadata = {
   title: "reviews",
 };
 
-export const revalidate = 10;
+export const revalidate = 30;
 
 export default async function ReviewsPage() {
   const reviews: Review[] = await getReviews();
-
-  console.log('[ReviewsPage]', 'rendered');
-  
+  console.log("[ReviewsPage]", "rendered");
 
   return (
     <>
