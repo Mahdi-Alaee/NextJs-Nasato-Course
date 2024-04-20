@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: "game reviews by Indie Gamer",
 };
 
-export const revalidate = 10;
+export const revalidate = 400;
 
 export default async function HomePage() {
   const latestReview = await getLatestReview();

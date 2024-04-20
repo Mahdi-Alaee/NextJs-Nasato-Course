@@ -60,3 +60,16 @@ export async function getLatestReview() {
   const reviews = await getReviews();
   return reviews[0];
 }
+
+export async function getReviewsByPage(
+  contentCountPerPage: number,
+  page: number
+) {
+  const reviews = await getReviews();
+  const endIndex = contentCountPerPage * page;
+  const startIndex = endIndex - contentCountPerPage;
+  const pagesCount = Math.ceil(reviews.length / contentCountPerPage);
+  const outputReviews = reviews.slice(startIndex, endIndex);
+
+  return { pagesCount, reviews: outputReviews };
+}
