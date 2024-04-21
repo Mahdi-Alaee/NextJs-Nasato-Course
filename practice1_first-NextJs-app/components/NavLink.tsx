@@ -19,7 +19,7 @@ export default function NavLink({
 }: NavLinkProps) {
   const pathName = usePathname();
 
-  console.log(pathName);
+  // console.log(pathName);
 
   return (
     <Link
