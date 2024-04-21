@@ -12,7 +12,7 @@ export const revalidate = 400;
 export default async function HomePage() {
   const latestReview = await getLatestReview();
 
-  console.log('[HomePage]', 'rendered');
+  // console.log('[HomePage]', 'rendered');
   
 
   return (

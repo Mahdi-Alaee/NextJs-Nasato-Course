@@ -16,11 +16,14 @@ export const metadata: Metadata = {
 export const revalidate = 400;
 
 export default async function ReviewsPage({ searchParams }: ReviewsPageProps) {
-  console.log("[ReviewsPage]", "rendered");
+  // console.log("[ReviewsPage]", "rendered");
 
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
 
   const { reviews, pagesCount } = await getReviewsByPage(4, page);
+
+  console.log('[ReviewsPage]',page);
+  
 
   return (
     <>
