@@ -72,5 +72,5 @@ export async function getReviewsByPage(
   const pagesCount = Math.ceil(reviews.length / contentCountPerPage);
   const outputReviews = reviews.slice(startIndex, endIndex);
 
-  return { pagesCount, reviews: outputReviews };
+  return { pagesCount, pageReviews: outputReviews, allReviews: reviews };
 }
