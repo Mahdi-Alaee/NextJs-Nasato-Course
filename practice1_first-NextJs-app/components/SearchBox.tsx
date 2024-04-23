@@ -3,17 +3,35 @@
 import { searchBetweenReviews, type Review } from "@/lib/reviews";
 import { Combobox } from "@headlessui/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface SearchBoxProps {
   reviews: Review[];
 }
 
-export default function SearchBox({ reviews }: SearchBoxProps) {
+export default function SearchBox() {
+  // { reviews }: SearchBoxProps
   const [query, setQuery] = useState("");
+  const [searchedReviews, setSearchedReviews] = useState<Review[]>([]);
   const router = useRouter();
 
-  const filteredReviews = searchBetweenReviews(reviews, query);
+  // const filteredReviews = searchBetweenReviews(reviews, query);
+
+  useEffect(() => {
+    if (query.length > 1) {
+      const controller = new AbortController();
+      (async () => {
+        const url = "/api/search?query=" + encodeURIComponent(query);
+
+        const res = await fetch(url, { signal: controller.signal });
+        const data = await res.json();
+        setSearchedReviews(data);
+      })();
+      return () => controller.abort();
+    } else {
+      setSearchedReviews([]);
+    }
+  }, [query]);
 
   const handleChange = (selectedReview: Review) => {
     router.push(`/reviews/${selectedReview.slug}`);
@@ -30,7 +48,7 @@ export default function SearchBox({ reviews }: SearchBoxProps) {
           onChange={(e) => setQuery(e.target.value)}
         />
         <Combobox.Options className="absolute bg-white w-full rounded max-h-40 overflow-y-scroll">
-          {filteredReviews.map((review) => (
+          {searchedReviews.map((review) => (
             <Combobox.Option
               className="w-full"
               key={review.slug}

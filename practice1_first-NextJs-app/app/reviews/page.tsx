@@ -30,7 +30,9 @@ export default async function ReviewsPage({ searchParams }: ReviewsPageProps) {
       <Heading>Reviews</Heading>
       <div className="flex justify-between items-center pt-4 px-4">
         <Pagination page={page} pageRoute="/reviews" pagesCount={pagesCount} />
-        <SearchBox reviews={allReviews} />
+        <SearchBox 
+        // reviews={allReviews}
+         />
       </div>
       <div
         className="flex flex-col items-center justify-center mt-4 gap-y-4 
