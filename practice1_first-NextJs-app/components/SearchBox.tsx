@@ -4,6 +4,7 @@ import { searchBetweenReviews, type Review } from "@/lib/reviews";
 import { Combobox } from "@headlessui/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useDebounce } from "use-debounce";
 
 interface SearchBoxProps {
   reviews: Review[];
@@ -14,14 +15,15 @@ export default function SearchBox() {
   const [query, setQuery] = useState("");
   const [searchedReviews, setSearchedReviews] = useState<Review[]>([]);
   const router = useRouter();
+  const [debouncedQuery] = useDebounce(query, 500);
 
   // const filteredReviews = searchBetweenReviews(reviews, query);
 
   useEffect(() => {
-    if (query.length > 1) {
+    if (debouncedQuery.length > 1) {
       const controller = new AbortController();
       (async () => {
-        const url = "/api/search?query=" + encodeURIComponent(query);
+        const url = "/api/search?query=" + encodeURIComponent(debouncedQuery);
 
         const res = await fetch(url, { signal: controller.signal });
         const data = await res.json();
@@ -31,11 +33,13 @@ export default function SearchBox() {
     } else {
       setSearchedReviews([]);
     }
-  }, [query]);
+  }, [debouncedQuery]);
 
   const handleChange = (selectedReview: Review) => {
     router.push(`/reviews/${selectedReview.slug}`);
   };
+
+  // console.log('[SearchBox]:', {query, debouncedQuery});
 
   return (
     <div className="relative">
