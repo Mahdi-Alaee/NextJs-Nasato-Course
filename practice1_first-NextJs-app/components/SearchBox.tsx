@@ -1,6 +1,6 @@
 "use client";
 
-import type { Review } from "@/lib/reviews";
+import { searchBetweenReviews, type Review } from "@/lib/reviews";
 import { Combobox } from "@headlessui/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -13,12 +13,11 @@ export default function SearchBox({ reviews }: SearchBoxProps) {
   const [query, setQuery] = useState("");
   const router = useRouter();
 
-  const filteredReviews = reviews.filter(review => review.title.toLowerCase().includes(query.toLocaleLowerCase()))
+  const filteredReviews = searchBetweenReviews(reviews, query);
 
   const handleChange = (selectedReview: Review) => {
     router.push(`/reviews/${selectedReview.slug}`);
   };
-
 
   return (
     <div className="relative">

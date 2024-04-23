@@ -45,7 +45,7 @@ export async function getReviews(): Promise<Review[]> {
   }
   reviews.sort((a, b) => b.date.localeCompare(a.date));
   // console.log('GET');
-  
+
   return reviews;
 }
 
@@ -73,4 +73,14 @@ export async function getReviewsByPage(
   const outputReviews = reviews.slice(startIndex, endIndex);
 
   return { pagesCount, pageReviews: outputReviews, allReviews: reviews };
+}
+
+export function searchBetweenReviews(reviews: Review[], query: string) {
+  const searchedReviews = reviews.filter((review) =>
+    review.title.toLowerCase().includes(query.toLowerCase())
+  );
+  return searchedReviews.map(({ slug, title }) => ({
+    slug,
+    title,
+  }));
 }
