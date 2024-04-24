@@ -44,7 +44,6 @@ export async function getReviews(): Promise<Review[]> {
     if (review) reviews.push(review);
   }
   reviews.sort((a, b) => b.date.localeCompare(a.date));
-  // console.log('GET');
 
   return reviews;
 }
