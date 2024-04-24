@@ -40,8 +40,7 @@ export default async function ReviewPage({
 
   if (!reviewData) notFound();
 
-  console.log('[ReviewPage]', slug + ' rendered');
-  
+  console.log("[ReviewPage]", slug + " rendered");
 
   return (
     <>
