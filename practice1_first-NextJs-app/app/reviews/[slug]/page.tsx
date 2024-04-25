@@ -1,6 +1,9 @@
+import CommentForm from "@/components/CommentForm";
+import CommentsList from "@/components/CommentsList";
 import Heading from "@/components/Heading";
 import ShareLinkButton from "@/components/ShareLinkButton";
 import { getReview, getSlugs } from "@/lib/reviews";
+import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
 import { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -61,8 +64,17 @@ export default async function ReviewPage({
       />
       <article
         dangerouslySetInnerHTML={{ __html: reviewData.body }}
-        className="prose prose-slate prose-h1:text-3xl"
+        className="prose prose-slate prose-h1:text-3xl pb-6"
       />
+
+      <section className="py-6 border-dotted border-t max-w-2xl">
+        <h2 className="flex gap-x-2">
+          <ChatBubbleBottomCenterTextIcon className="w-8" />
+          <span className="font-bold text-2xl">Comments</span>
+        </h2>
+        <CommentForm />
+        <CommentsList />
+      </section>
     </>
   );
 }
