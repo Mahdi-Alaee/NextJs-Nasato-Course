@@ -73,7 +73,7 @@ export default async function ReviewPage({
           <span className="font-bold text-2xl">Comments</span>
         </h2>
         <CommentForm />
-        <CommentsList />
+        <CommentsList slug={slug} />
       </section>
     </>
   );
