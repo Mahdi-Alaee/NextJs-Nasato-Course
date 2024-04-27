@@ -43,7 +43,7 @@ export default async function ReviewPage({
 
   if (!reviewData) notFound();
 
-  console.log("[ReviewPage]", slug + " rendered");
+  // console.log("[ReviewPage]", slug + " rendered");
 
   return (
     <>
@@ -72,7 +72,7 @@ export default async function ReviewPage({
           <ChatBubbleBottomCenterTextIcon className="w-8" />
           <span className="font-bold text-2xl">Comments</span>
         </h2>
-        <CommentForm />
+        <CommentForm slug={slug} title={reviewData.title} />
         <CommentsList slug={slug} />
       </section>
     </>
