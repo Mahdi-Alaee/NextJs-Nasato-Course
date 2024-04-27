@@ -19,6 +19,7 @@ export default function CommentForm({ slug, title }: CommentFormProps) {
       },
     });
     console.log(res);
+    redirect(`/reviews/${slug}`);
   }
 
   return (
