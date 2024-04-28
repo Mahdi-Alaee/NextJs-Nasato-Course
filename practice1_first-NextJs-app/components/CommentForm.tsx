@@ -11,6 +11,10 @@ export default function CommentForm({ slug, title }: CommentFormProps) {
   async function action(formData: FormData) {
     "use server";
 
+    if(!formData.get('user')){
+      return {error: true, message: 'the user field is invalid'}
+    }
+
     const res = await db.comment.create({
       data: {
         slug,
