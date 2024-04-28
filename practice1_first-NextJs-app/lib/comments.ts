@@ -13,6 +13,9 @@ export async function createComment(user: string, body: string, slug: string) {
 export async function getCommentsByReview(slug: string) {
   const comments = await db.comment.findMany({
     where: { slug },
+    orderBy: {
+      createdAt: "desc"
+    }
   });
 
   return comments;

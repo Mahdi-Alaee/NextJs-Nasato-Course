@@ -5,14 +5,18 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export async function createCommentAction(formData: FormData) {
-  if (!formData.get("user")) {
+  const slug = formData.get("slug") as string;
+  const user = formData.get("user") as string;
+  const body = formData.get("message") as string;
+
+  if (!user.length) {
     return { error: true, message: "the user field is invalid" };
   }
 
   const data = {
-    slug: formData.get("slug") as string,
-    user: formData.get("user") as string,
-    body: formData.get("message") as string,
+    slug,
+    user,
+    body,
   };
 
   const res = await db.comment.create({

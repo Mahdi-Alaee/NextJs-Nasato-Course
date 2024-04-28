@@ -1,7 +1,7 @@
+"use client";
+
 import { createCommentAction } from "@/app/reviews/[slug]/actions";
-import { db } from "@/lib/db";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+import { FormEvent, FormEventHandler } from "react";
 
 interface CommentFormProps {
   slug: string;
@@ -9,8 +9,19 @@ interface CommentFormProps {
 }
 
 export default function CommentForm({ slug, title }: CommentFormProps) {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const res = await createCommentAction(formData);
+    if(res?.error){
+      alert(res.message);
+    }
+  };
+
   return (
-    <form action={createCommentAction} className="bg-white p-4 rounded-md mt-4">
+    <form onSubmit={handleSubmit} className="bg-white p-4 rounded-md mt-4">
       {/* question */}
       <p>
         Already played <span className="font-bold">{title}</span>?
