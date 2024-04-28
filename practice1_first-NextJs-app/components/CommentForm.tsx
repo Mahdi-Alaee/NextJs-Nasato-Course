@@ -1,3 +1,4 @@
+import { createCommentAction } from "@/app/reviews/[slug]/actions";
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -8,27 +9,8 @@ interface CommentFormProps {
 }
 
 export default function CommentForm({ slug, title }: CommentFormProps) {
-  async function action(formData: FormData) {
-    "use server";
-
-    if(!formData.get('user')){
-      return {error: true, message: 'the user field is invalid'}
-    }
-
-    const res = await db.comment.create({
-      data: {
-        slug,
-        user: formData.get("user") as string,
-        body: formData.get("message") as string,
-      },
-    });
-    console.log(res);
-    revalidatePath(`/reviews/${slug}`);
-    redirect(`/reviews/${slug}`);
-  }
-
   return (
-    <form action={action} className="bg-white p-4 rounded-md mt-4">
+    <form action={createCommentAction} className="bg-white p-4 rounded-md mt-4">
       {/* question */}
       <p>
         Already played <span className="font-bold">{title}</span>?
@@ -59,7 +41,7 @@ export default function CommentForm({ slug, title }: CommentFormProps) {
           <textarea
             name="message"
             className="border border-gray-200 outline-none p-2 min-h-28 max-h-96 md:w-96"
-            minLength={20}
+            minLength={10}
             maxLength={500}
             required
           ></textarea>
@@ -71,6 +53,9 @@ export default function CommentForm({ slug, title }: CommentFormProps) {
           Submit
         </button>
       </div>
+      {/* start hidden inputs */}
+      <input type="hidden" name="slug" value={slug} />
+      {/* finish hidden inputs */}
     </form>
   );
 }
