@@ -42,6 +42,9 @@ export default function CommentForm({ slug, title }: CommentFormProps) {
             className="border border-gray-200 outline-none p-2 md:w-96"
             type="text"
             name="user"
+            minLength={5}
+            maxLength={50}
+            required
           />
         </div>
         {/* input wrapper */}
@@ -52,6 +55,9 @@ export default function CommentForm({ slug, title }: CommentFormProps) {
           <textarea
             name="message"
             className="border border-gray-200 outline-none p-2 min-h-28 max-h-96 md:w-96"
+            minLength={20}
+            maxLength={500}
+            required
           ></textarea>
         </div>
         <button
