@@ -21,8 +21,6 @@ export async function createCommentAction(formData: FormData) {
     return { isError: true, message: error };
   }
 
-  
-
   const res = await db.comment.create({
     data,
   });
@@ -40,17 +38,13 @@ interface Data {
 function validate(data: Data) {
   if (data.user.length < 5) {
     return "the user field must have at least 5 letter!";
-  } 
-   else if (data.user.length > 50) {
+  } else if (data.user.length > 50) {
     return "the user field is too long!";
-  } 
-   else if (data.body.length < 10) {
+  } else if (data.body.length < 10) {
     return "the message field must have at least 10 letter!";
-  } 
-   else if (data.body.length < 10) {
+  } else if (data.body.length < 10) {
     return "the message field is too long!";
-  } 
-  else {
+  } else {
     return false;
   }
 }

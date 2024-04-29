@@ -1,37 +1,15 @@
 "use client";
 
 import { createCommentAction } from "@/app/reviews/[slug]/actions";
-import { FormEvent, FormEventHandler, useState } from "react";
+import { useActionState } from "@/hooks";
 
 interface CommentFormProps {
   slug: string;
   title: string;
 }
 
-interface Error {
-  isError: boolean;
-  message: string;
-}
-
 export default function CommentForm({ slug, title }: CommentFormProps) {
-  const [error, setError] = useState<Error | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    setIsLoading(true);
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-    const res = await createCommentAction(formData);
-    if (res?.isError) {
-      setError(res);
-    } else {
-      form.reset();
-      setError(null);
-    }
-    setIsLoading(false);
-  };
+  const [state, handleSubmit] = useActionState(createCommentAction);
 
   return (
     <form onSubmit={handleSubmit} className="bg-white p-4 rounded-md mt-4">
@@ -70,15 +48,17 @@ export default function CommentForm({ slug, title }: CommentFormProps) {
             // required
           ></textarea>
         </div>
-        {Boolean(error) && (
-          <p className="text-red-700 text-center pl-6">{error?.message}</p>
+        {Boolean(state.error?.isError) && (
+          <p className="text-red-700 text-center pl-6">
+            {state.error?.message}
+          </p>
         )}
         <button
           className="bg-orange-800 text-white mx-auto px-12 py-2 rounded-lg disabled:bg-gray-600 disabled:cursor-not-allowed"
           type="submit"
-          disabled={isLoading}
+          disabled={state.isLoading}
         >
-          {isLoading ? 'loading ...':'Submit'}
+          {state.isLoading ? "loading ..." : "Submit"}
         </button>
       </div>
       {/* start hidden inputs */}
