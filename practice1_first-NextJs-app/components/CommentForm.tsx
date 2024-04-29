@@ -15,19 +15,22 @@ interface Error {
 
 export default function CommentForm({ slug, title }: CommentFormProps) {
   const [error, setError] = useState<Error | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    setIsLoading(true);
     const form = e.currentTarget;
     const formData = new FormData(form);
     const res = await createCommentAction(formData);
     if (res?.isError) {
       setError(res);
     } else {
-      setError(null);
       form.reset();
+      setError(null);
     }
+    setIsLoading(false);
   };
 
   return (
@@ -71,10 +74,11 @@ export default function CommentForm({ slug, title }: CommentFormProps) {
           <p className="text-red-700 text-center pl-6">{error?.message}</p>
         )}
         <button
-          className="bg-orange-800 text-white mx-auto px-12 py-2 rounded-lg"
+          className="bg-orange-800 text-white mx-auto px-12 py-2 rounded-lg disabled:bg-gray-600 disabled:cursor-not-allowed"
           type="submit"
+          disabled={isLoading}
         >
-          Submit
+          {isLoading ? 'loading ...':'Submit'}
         </button>
       </div>
       {/* start hidden inputs */}
