@@ -76,7 +76,7 @@ export default async function ReviewPage({
         </h2>
         <CommentForm slug={slug} title={reviewData.title} />
         
-        <Suspense fallback={<p className="bg-yellow-100 py-2 pl-2">Loading Comments ...</p>}>
+        <Suspense fallback={<CommentsListSkeleton />}>
           <CommentsList slug={slug} />
         </Suspense>
       </section>
