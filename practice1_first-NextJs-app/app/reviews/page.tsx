@@ -21,18 +21,18 @@ export default async function ReviewsPage({ searchParams }: ReviewsPageProps) {
 
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
 
-  const { pageReviews, pagesCount, allReviews } = await getReviewsByPage(4, page);
+  const { pageReviews, pagesCount } = await getReviewsByPage(4, page);
 
-  console.log("[ReviewsPage]", page);
+  // console.log("[ReviewsPage]", page);
 
   return (
     <>
       <Heading>Reviews</Heading>
       <div className="flex justify-between items-center pt-4 px-4">
         <Pagination page={page} pageRoute="/reviews" pagesCount={pagesCount} />
-        <SearchBox 
+        <SearchBox
         // reviews={allReviews}
-         />
+        />
       </div>
       <div
         className="flex flex-col items-center justify-center mt-4 gap-y-4 

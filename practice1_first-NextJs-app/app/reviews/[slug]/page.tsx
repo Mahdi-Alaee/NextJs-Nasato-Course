@@ -45,8 +45,6 @@ export default async function ReviewPage({
 
   if (!reviewData) notFound();
 
-  // console.log("[ReviewPage]", slug + " rendered");
-
   return (
     <>
       <Heading>{reviewData.title}</Heading>
@@ -75,7 +73,7 @@ export default async function ReviewPage({
           <span className="font-bold text-2xl">Comments</span>
         </h2>
         <CommentForm slug={slug} title={reviewData.title} />
-        
+
         <Suspense fallback={<CommentsListSkeleton />}>
           <CommentsList slug={slug} />
         </Suspense>

@@ -11,9 +11,7 @@ export async function createComment(user: string, body: string, slug: string) {
 }
 
 export async function getCommentsByReview(slug: string) {
-  await new Promise<void>((resolve) =>
-    setTimeout(() => resolve(), 3000)
-  );
+  await new Promise<void>((resolve) => setTimeout(() => resolve(), 6000));
   const comments = await db.comment.findMany({
     where: { slug },
     orderBy: {
