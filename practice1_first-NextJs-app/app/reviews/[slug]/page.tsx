@@ -1,5 +1,6 @@
 import CommentForm from "@/components/CommentForm";
 import CommentsList from "@/components/CommentsList";
+import CommentsListSkeleton from "@/components/CommentsListSkeleton";
 import Heading from "@/components/Heading";
 import ShareLinkButton from "@/components/ShareLinkButton";
 import { getReview, getSlugs } from "@/lib/reviews";
@@ -7,6 +8,7 @@ import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
 import { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
 interface ReviewPageParams {
   slug: string;
@@ -73,7 +75,10 @@ export default async function ReviewPage({
           <span className="font-bold text-2xl">Comments</span>
         </h2>
         <CommentForm slug={slug} title={reviewData.title} />
-        <CommentsList slug={slug} />
+        
+        <Suspense fallback={<p className="bg-yellow-100 py-2 pl-2">Loading Comments ...</p>}>
+          <CommentsList slug={slug} />
+        </Suspense>
       </section>
     </>
   );
