@@ -26,6 +26,14 @@ export default function NavBar() {
           Reviews
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          className="text-orange-800 font-bold hover:underline"
+          href="/sign-in"
+        >
+          Sign In
+        </NavLink>
+      </li>
     </ul>
   );
 }
