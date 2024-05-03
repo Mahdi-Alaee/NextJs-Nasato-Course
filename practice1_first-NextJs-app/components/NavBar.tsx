@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import { AuthenticatedUser } from "@/app/sign-in/actions";
 
 export default function NavBar() {
-  const userCookie = cookies().get("user");
+  const userCookie = cookies().get("sessionToken");
   const authenticatedUser = userCookie
     ? (JSON.parse(userCookie.value) as AuthenticatedUser)
     : null;
