@@ -1,6 +1,5 @@
-import Link from "next/link";
 import Heading from "@/components/Heading";
-import { Review, getReviews, getReviewsByPage } from "@/lib/reviews";
+import { getReviewsByPage } from "@/lib/reviews";
 import ReviewBox from "@/components/ReviewBox";
 import { Metadata } from "next";
 import Pagination from "@/components/Pagination";
