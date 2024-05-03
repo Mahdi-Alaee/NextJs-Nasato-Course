@@ -1,24 +1,10 @@
-import Link from "next/link";
 import NavLink from "./NavLink";
-import { cookies } from "next/headers";
-import { AuthenticatedUser } from "@/app/sign-in/actions";
-import { jwtVerify } from "jose";
+import { getUserFromSession } from "@/lib/auth";
 
 const JWT_SECRET = new TextEncoder().encode("random_string");
 
 export default async function NavBar() {
-  const getUserFromSession = async () => {
-    const userToken = cookies().get("sessionToken");
-    if (!userToken) {
-      return null;
-    }
-
-    const { payload } = await jwtVerify(userToken.value, JWT_SECRET);
-    return payload;
-  };
-
-  const authenticatedUser =
-    (await getUserFromSession()) as AuthenticatedUser | null;
+  const authenticatedUser = await getUserFromSession();
 
   return (
     <ul className="flex gap-x-3">

@@ -1,12 +1,9 @@
 "use server";
 
+import { setUserSession } from "@/lib/auth";
 import { SignJWT } from "jose";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-
-export interface AuthenticatedUser {
-  email: string;
-}
 
 const JWT_SECRET = new TextEncoder().encode("random_string");
 
@@ -17,10 +14,7 @@ export async function signInAction(formData: FormData) {
   if (!user) {
     return { isError: true, message: "incorrect data is entered !!!" };
   }
-  const sessionToken = await new SignJWT(user)
-    .setProtectedHeader({ alg: "HS256" })
-    .sign(JWT_SECRET);
-  cookies().set("sessionToken", sessionToken);
+  setUserSession(user);
   redirect("/");
 }
 
