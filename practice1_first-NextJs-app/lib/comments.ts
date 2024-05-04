@@ -1,13 +1,11 @@
 import { db } from "./db";
 
-export async function createComment(user: string, body: string, slug: string) {
-  return await db.comment.create({
-    data: {
-      user,
-      body,
-      slug,
-    },
-  });
+export async function createComment(data: {
+  user: string;
+  body: string;
+  slug: string;
+}) {
+  return await db.comment.create({ data });
 }
 
 export async function getCommentsByReview(slug: string) {
