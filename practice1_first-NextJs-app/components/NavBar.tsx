@@ -1,5 +1,6 @@
 import NavLink from "./NavLink";
 import { getUserFromSession } from "@/lib/auth";
+import SignOutButton from "./SignOutButton";
 
 const JWT_SECRET = new TextEncoder().encode("random_string");
 
@@ -41,12 +42,7 @@ export default async function NavBar() {
         </li>
       ) : (
         <li>
-          <NavLink
-            className="text-orange-800 font-bold hover:underline"
-            href="/"
-          >
-            {authenticatedUser.email}
-          </NavLink>
+          <SignOutButton />
         </li>
       )}
     </ul>

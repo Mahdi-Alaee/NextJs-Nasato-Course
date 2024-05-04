@@ -1,4 +1,4 @@
-import { JWTPayload, SignJWT, jwtVerify } from "jose";
+import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 
 const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET);
@@ -10,12 +10,12 @@ export type AuthenticatedUser = {
 };
 
 export async function getUserFromSession() {
-  const userToken = cookies().get(COOKIE_NAME);
+  const userToken = cookies().get(COOKIE_NAME)?.value;
   if (!userToken) {
     return null;
   }
 
-  const { payload } = (await jwtVerify(userToken.value, JWT_SECRET)) as {
+  const { payload } = (await jwtVerify(userToken, JWT_SECRET)) as {
     payload: AuthenticatedUser;
   };
 
@@ -31,4 +31,9 @@ export async function setUserSession(user: AuthenticatedUser) {
     .sign(JWT_SECRET);
 
   cookies().set(COOKIE_NAME, token, { expires: expireDate });
+}
+
+export function logout (){
+  cookies().delete(COOKIE_NAME);
+  
 }
