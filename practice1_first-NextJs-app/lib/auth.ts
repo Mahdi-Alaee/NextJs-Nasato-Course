@@ -6,7 +6,9 @@ const COOKIE_NAME = "sessionToken";
 const DURATION_DATE = 14 * 24 * 60 * 60 * 1000;
 
 export type AuthenticatedUser = {
+  id: string;
   email: string;
+  name: string;
 };
 
 export async function getUserFromSession() {
@@ -22,10 +24,10 @@ export async function getUserFromSession() {
   return payload;
 }
 
-export async function setUserSession(user: AuthenticatedUser) {
+export async function setUserSession({ name, email, id }: AuthenticatedUser) {
   const expireDate = new Date(Date.now() + DURATION_DATE);
 
-  const token = await new SignJWT(user)
+  const token = await new SignJWT({ name, email, id })
     .setProtectedHeader({ alg: "HS256" })
     .setExpirationTime(expireDate)
     .sign(JWT_SECRET);
@@ -33,7 +35,6 @@ export async function setUserSession(user: AuthenticatedUser) {
   cookies().set(COOKIE_NAME, token, { expires: expireDate });
 }
 
-export function logout (){
+export function logout() {
   cookies().delete(COOKIE_NAME);
-  
 }
