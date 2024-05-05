@@ -31,22 +31,22 @@ export default async function NavBar() {
       </li>
       {!authenticatedUser ? (
         <>
-        <li>
-          <NavLink
-            className="text-orange-800 font-bold hover:underline"
-            href="/sign-in"
-          >
-            Sign In
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            className="text-orange-800 font-bold hover:underline"
-            href="/sign-up"
-          >
-            Sign Up
-          </NavLink>
-        </li>
+          <li>
+            <NavLink
+              className="text-orange-800 font-bold hover:underline"
+              href="/sign-up"
+            >
+              Sign Up
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              className="text-orange-800 font-bold hover:underline"
+              href="/sign-in"
+            >
+              Sign In
+            </NavLink>
+          </li>
         </>
       ) : (
         <li>
