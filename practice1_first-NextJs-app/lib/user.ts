@@ -1,18 +1,33 @@
 import { db } from "./db";
+import { hash, compare } from "bcrypt";
 
-export async function createUser(data: {
+export async function createUser({
+  email,
+  name,
+  password,
+}: {
   name: string;
   email: string;
   password: string;
 }) {
-  return await db.user.create({ data });
+  const passwordHash = await hash(password, 10);
+  return await db.user.create({
+    data: {
+      email,
+      name,
+      passwordHash,
+    },
+  });
 }
 
 export async function loginUser(email: string, password: string) {
-  return await db.user.findUnique({
+  const user = await db.user.findUnique({
     where: {
       email,
-      password,
     },
   });
+
+  if (user && (await compare(password, user.passwordHash))) {
+    return user;
+  }
 }
