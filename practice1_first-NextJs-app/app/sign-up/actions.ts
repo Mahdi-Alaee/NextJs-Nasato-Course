@@ -22,20 +22,29 @@ export async function createUserAction(formData: FormData) {
     password,
   };
 
-  const error = validate(data);
+  const error = await validate(data);
+
+  console.log(error);
 
   if (error !== false) {
     return { isError: true, message: error };
   }
 
   const user = await createUser(data);
-  setUserSession(user)
+  setUserSession(user);
   redirect("/");
 }
 
-function validate({ email, name, password }: User) {
+async function validate({ email, name, password }: User) {
+  const isEmailExist = await db.user.findUnique({
+    where: {
+      email,
+    },
+  });
   if (!isValidEmail(email)) {
     return "email is not valid";
+  } else if (Boolean(isEmailExist)) {
+    return "your email is already exists in our database";
   } else if (!(name.length > 3 && name.length < 40 && !Number(name[0]))) {
     return "username must be greater than 3 and lower than 40 caracters and it must have at least 1 alphabet";
   } else if (!isValidPassword(password)) {
