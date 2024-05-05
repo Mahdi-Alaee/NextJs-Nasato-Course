@@ -9,6 +9,7 @@ export default async function CommentsList({ slug }: CommentsListProps) {
   const comments = await getCommentsByReview(slug);
 
   return (
+    comments?.length > 0 ?
     <ul className="border border-gray-300">
       {comments.map((comment) => (
         <li
@@ -26,6 +27,6 @@ export default async function CommentsList({ slug }: CommentsListProps) {
           <p>{comment.body}</p>
         </li>
       ))}
-    </ul>
+    </ul>: <p className="text-yellow-600 bg-yellow-100 text-xl mt-2 p-2">No comments!</p>
   );
 }

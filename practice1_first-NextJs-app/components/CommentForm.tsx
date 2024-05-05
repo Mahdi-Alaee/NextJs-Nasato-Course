@@ -6,9 +6,14 @@ import { useActionState } from "@/hooks";
 interface CommentFormProps {
   slug: string;
   title: string;
+  userName: string;
 }
 
-export default function CommentForm({ slug, title }: CommentFormProps) {
+export default function CommentForm({
+  slug,
+  title,
+  userName,
+}: CommentFormProps) {
   const [state, handleSubmit] = useActionState(createCommentAction);
 
   return (
@@ -18,14 +23,16 @@ export default function CommentForm({ slug, title }: CommentFormProps) {
         Already played <span className="font-bold">{title}</span>?
       </p>
       {/* command */}
-      <p>Have to say!</p>
+      <p>
+        <span className="text-orange-500">{userName}</span> Have to say!
+      </p>
       {/* form wrapper */}
       <div className="flex flex-col gap-y-3 mt-4">
-        {/* input wrapper */}
+        {/* input wrapper
         <div className="flex justify-between">
-          {/* input label */}
+           input label 
           <label>Your name:</label>
-          {/* input */}
+           input 
           <input
             className="border border-gray-200 outline-none p-2 md:w-96"
             type="text"
@@ -34,7 +41,7 @@ export default function CommentForm({ slug, title }: CommentFormProps) {
             // maxLength={50}
             // required
           />
-        </div>
+        </div> */}
         {/* input wrapper */}
         <div className="flex justify-between">
           {/* input label */}

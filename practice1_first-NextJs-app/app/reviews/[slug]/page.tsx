@@ -3,10 +3,12 @@ import CommentsList from "@/components/CommentsList";
 import CommentsListSkeleton from "@/components/CommentsListSkeleton";
 import Heading from "@/components/Heading";
 import ShareLinkButton from "@/components/ShareLinkButton";
+import { getUserFromSession } from "@/lib/auth";
 import { getReview, getSlugs } from "@/lib/reviews";
 import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
 import { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
@@ -42,6 +44,7 @@ export default async function ReviewPage({
   params: { slug },
 }: ReviewPageProps) {
   const reviewData = await getReview(slug);
+  const authenticatedUser = await getUserFromSession();
 
   if (!reviewData) notFound();
 
@@ -72,7 +75,16 @@ export default async function ReviewPage({
           <ChatBubbleBottomCenterTextIcon className="w-8" />
           <span className="font-bold text-2xl">Comments</span>
         </h2>
-        <CommentForm slug={slug} title={reviewData.title} />
+        {!authenticatedUser ? (
+          <p className="bg-red-100 text-red-500 p-2">
+            first you should{" "}
+            <Link href="/sign-in" className="text-orange-600 underline">
+              Sign In
+            </Link>
+          </p>
+        ) : (
+          <CommentForm slug={slug} title={reviewData.title} userName={authenticatedUser.name} />
+        )}
 
         <Suspense fallback={<CommentsListSkeleton />}>
           <CommentsList slug={slug} />
