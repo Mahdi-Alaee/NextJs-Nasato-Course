@@ -1,7 +1,7 @@
 import { db } from "./db";
 
 export async function createComment(data: {
-  user: string;
+  userId: string;
   body: string;
   slug: string;
 }) {
@@ -14,6 +14,9 @@ export async function getCommentsByReview(slug: string) {
     where: { slug },
     orderBy: {
       createdAt: "desc",
+    },
+    include: {
+      user: { select: { name: true } },
     },
   });
 

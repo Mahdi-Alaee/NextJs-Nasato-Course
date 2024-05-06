@@ -21,7 +21,7 @@ export default async function CommentsList({ slug }: CommentsListProps) {
             {/* icon */}
             <UserCircleIcon className="w-6" />
             {/* creator */}
-            <span>{comment.user}</span>
+            <span>{comment.user.name}</span>
           </div>
           {/* body */}
           <p>{comment.body}</p>
