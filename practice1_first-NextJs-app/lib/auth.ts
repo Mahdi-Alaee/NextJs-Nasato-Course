@@ -1,5 +1,6 @@
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
+import { cache } from "react";
 
 const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET);
 const COOKIE_NAME = "sessionToken";
@@ -11,17 +12,19 @@ export type AuthenticatedUser = {
   name: string;
 };
 
-export async function getUserFromSession() {
+const decodeUserSession = cache(async (userToken: string) => {
+  console.log("verify");
+
+  return (await jwtVerify(userToken, JWT_SECRET))?.payload as AuthenticatedUser;
+});
+
+export function getUserFromSession() {
   const userToken = cookies().get(COOKIE_NAME)?.value;
   if (!userToken) {
     return null;
   }
 
-  const { payload } = (await jwtVerify(userToken, JWT_SECRET)) as {
-    payload: AuthenticatedUser;
-  };
-
-  return payload;
+  return decodeUserSession(userToken);
 }
 
 export async function setUserSession({ name, email, id }: AuthenticatedUser) {
@@ -38,3 +41,6 @@ export async function setUserSession({ name, email, id }: AuthenticatedUser) {
 export function logout() {
   cookies().delete(COOKIE_NAME);
 }
+// const { payload } = (await jwtVerify(userToken, JWT_SECRET)) as {
+//   payload: AuthenticatedUser;
+// };
