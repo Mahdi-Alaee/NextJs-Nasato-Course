@@ -31,4 +31,8 @@ export const options = {
       },
     }),
   ],
+  pages: {
+    signIn: "/auth/login",
+    signOut: "/auth/logout",
+  },
 };
