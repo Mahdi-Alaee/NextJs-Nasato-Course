@@ -1,14 +1,14 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 
 export default function Login() {
-  const router = useRouter();
+  //! client component way
   const { data: session } = useSession({
     required: true,
     onUnauthenticated() {
-      router.push(`/auth/login?callbackUrl=/about`);
+      redirect("/auth/login?callbackUrl=/about");
     },
   });
 
