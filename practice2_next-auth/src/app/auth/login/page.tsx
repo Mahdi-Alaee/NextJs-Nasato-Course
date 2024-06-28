@@ -1,7 +1,7 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import { redirect, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useState } from "react";
 
 export default function Login() {
@@ -57,6 +57,16 @@ export default function Login() {
       />
       <button className="bg-white text-black" type="submit">
         Login
+      </button>
+      <p>-----------------------------</p>
+      <button
+        onClick={() =>
+          signIn("github", {
+            callbackUrl,
+          })
+        }
+      >
+        GitHub
       </button>
     </form>
   );
